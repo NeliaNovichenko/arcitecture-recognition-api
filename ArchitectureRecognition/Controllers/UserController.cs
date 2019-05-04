@@ -25,7 +25,7 @@ namespace ArchitectureRecognition.Controllers
 
             if (currentUserId == null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             User currentAppUser = await _appUserService.GetByIdAsync(currentUserId);

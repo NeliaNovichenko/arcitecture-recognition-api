@@ -58,7 +58,7 @@ namespace ArchitectureRecognition.Controllers
             User appUser = await _appUserService.GetByIdAsync(authUser.Id);
             string token = GenerateJwtTokenString(authUser);
 
-            return Ok(new { /* user = appUser, */ token });
+            return Ok(new { user = appUser, token });
         }
 
         [HttpPost("sign-up")]

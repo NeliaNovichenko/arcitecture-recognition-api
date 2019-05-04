@@ -85,13 +85,13 @@ namespace ArchitectureRecognition
                 app.UseHsts();
             }
 
-            app.UseStaticFiles(); // For the wwwroot folder
+            //app.UseStaticFiles(); // For the wwwroot folder
 
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles")),
-                RequestPath = "/results"
+                RequestPath = "/images"
             });
 
             app.UseCors(builder => {

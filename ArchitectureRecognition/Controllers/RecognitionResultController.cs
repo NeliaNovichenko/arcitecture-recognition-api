@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ArchitectureRecognition.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/results/[controller]")]
     [ApiController]
     public class RecognitionResultController : ControllerBase
     {
@@ -35,6 +35,7 @@ namespace ArchitectureRecognition.Controllers
         public async Task<ActionResult<RecognitionResultDto[]>> GetAllAsync()
         {
             string userId = User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
+            //string userId = 0;
 
             List<RecognitionResult> recognitionResults = await _service.GetAllAsync(userId);
 
@@ -77,7 +78,7 @@ namespace ArchitectureRecognition.Controllers
             string userId = User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
 
             var webRoot = _env.WebRootPath;
-            var PathWithFolderName = System.IO.Path.Combine(webRoot, "MyFolder");
+            var PathWithFolderName = System.IO.Path.Combine(webRoot, "StaticFiles");
 
 
             if (!Directory.Exists(PathWithFolderName))
