@@ -13,10 +13,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing.Imaging;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace ArchitectureRecognition.Controllers
 {
-    [Route("api/results/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RecognitionResultController : ControllerBase
     {
@@ -69,17 +70,18 @@ namespace ArchitectureRecognition.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<RecognitionResultDto>> CreateAsync([FromBody][Required]RecognitionResultDto resultDto, [FromForm]IFormFile file)
+        public async Task<ActionResult<RecognitionResultDto>> CreateAsync([FromForm]SaveRecognitionDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            var resultDto = JsonConvert.DeserializeObject<RecognitionResultDto>(dto.resultDto);
+            IFormFile file = dto.file;
+
             string userId = User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
 
-            var webRoot = _env.WebRootPath;
-            var PathWithFolderName = System.IO.Path.Combine(webRoot, "StaticFiles");
-
+            var PathWithFolderName = Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles//");
 
             if (!Directory.Exists(PathWithFolderName))
             {
@@ -87,11 +89,19 @@ namespace ArchitectureRecognition.Controllers
                 DirectoryInfo di = Directory.CreateDirectory(PathWithFolderName);
             }
 
-            Image image = file as Image;
-            var imagePath = PathWithFolderName + file.FileName + Guid.NewGuid();
-            image.Save(imagePath);
+            var fileNameExtention = file.FileName.Split(".");
 
-            resultDto.ImagePath = imagePath;
+            var imagePath = string.Join("", fileNameExtention.Take(fileNameExtention.Length - 1))
+                + Guid.NewGuid() 
+                + "."
+                + fileNameExtention[fileNameExtention.Length - 1];
+
+            using (var fileStream = new FileStream(PathWithFolderName+imagePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            resultDto.ImagePath = "/images/" + imagePath;
             var task = _mapper.MapToEntity(resultDto, userId);
             var created = await _service.AddRecognitionResultAsync(task);
 

@@ -24,11 +24,11 @@ namespace ArchitectureRecognition.Data
 
             modelBuilder.Entity<RecognitionResult>(recognitionResults =>
             {
-                recognitionResults.HasOne(tl => tl.User)
-                    .WithMany(u => u.RecognitionResults)
-                    .HasForeignKey(tl => tl.UserId);
-
-                recognitionResults.Property(tl => tl.UserId)
+                recognitionResults.Property(tl => tl.AuthUserId)
+                    .IsRequired();
+                recognitionResults.Property(tl => tl.ImagePath)
+                    .IsRequired();
+                recognitionResults.Property(tl => tl.Style)
                     .IsRequired();
 
             });

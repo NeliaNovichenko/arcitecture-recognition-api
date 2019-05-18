@@ -1,4 +1,6 @@
-﻿namespace ArchitectureRecognition.Models.RecognitionResult
+﻿using System;
+
+namespace ArchitectureRecognition.Models.RecognitionResult
 {
     public sealed class RecognitionResultMapper : IRecognitionResultMapper
     {
@@ -17,19 +19,22 @@
             };
         }
 
-        public Services.Data.Entities.RecognitionResult MapToEntity(RecognitionResultDto dto, string userId)
+        public Services.Data.Entities.RecognitionResult MapToEntity(
+            RecognitionResultDto dto, 
+            string userId
+            )
         {
             return new Services.Data.Entities.RecognitionResult
             {
-                Id = dto.Id,
+                Id = dto.Id.HasValue ? dto.Id.Value : 0,
                 Title = dto.Title,
                 Description = dto.Description,
-                Date = dto.Date,
-                ImageDate = dto.ImageDate,
+                Date = dto.Date.HasValue ? dto.Date.Value : new DateTime(),
+                ImageDate = dto.ImageDate.HasValue ? dto.ImageDate.Value : new DateTime(),
                 ImageName = dto.ImageName,
                 ImagePath = dto.ImagePath,
-                Style = dto.Style,
-                UserId = userId
+                Style = dto.Style.HasValue ? dto.Style.Value : 0,
+                AuthUserId = userId
             };
         }
     }

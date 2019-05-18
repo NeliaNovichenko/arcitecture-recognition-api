@@ -24,7 +24,7 @@ namespace ArchitectureRecognition.Data
 
         public async Task<List<RecognitionResult>> GetAllRecognitionResultsAync(string userId)
         {
-            return await _dbContext.RecognitionResults.Where(r => r.UserId == userId).ToListAsync();
+            return await _dbContext.RecognitionResults.Where(r => r.AuthUserId == userId).ToListAsync();
         }
 
         public async Task<RecognitionResult> FindByIdAsync(int id)
