@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ArchitectureRecognition.Services.Data.Entities;
@@ -22,13 +23,14 @@ namespace ArchitectureRecognition.Controllers
         public async Task<IActionResult> GetCurrentUserAsync()
         {
             string currentUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
 
-            if (currentUserId == null)
+            if (userId == null)
             {
                 return Unauthorized();
             }
 
-            User currentAppUser = await _appUserService.GetByIdAsync(currentUserId);
+            User currentAppUser = await _appUserService.GetByIdAsync(userId);
 
             return Ok(currentAppUser);
         }
