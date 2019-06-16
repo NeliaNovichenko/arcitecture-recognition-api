@@ -1,4 +1,4 @@
-# arcitecture-recognition-api 
+# Arcitecture Recognition Web API 
 ![N|Solid](https://avatars1.githubusercontent.com/u/6582119?s=280&v=4 ) 
 
 Architecture recognition API is Web API for saving image prediction results.
