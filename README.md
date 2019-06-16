@@ -3,13 +3,13 @@
 
 Architecture recognition API is Web API for saving image prediction results.
 
-### Installation
+## Installation
 Arcitecture-recognition-api requires [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1) to run.
 
-### Development 
+## Development 
 You can run application in Visual Studio using `Run on IIS Express`.
 
-### References 
+## References 
 
 | Name | Link |
 | ------ | ------ |
