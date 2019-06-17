@@ -13,5 +13,5 @@ You can run application in Visual Studio using `Run on IIS Express`.
 
 | Name | Link |
 | ------ | ------ |
-| Backend for prediction | [arcitecture-recognition-client](https://github.com/NeliaNovichenko/arcitecture-recognition-client) |
-| Frontend application | [arcitecture-prediction-api](https://github.com/NeliaNovichenko/arcitecture-prediction-api) |
+| Frontend application| [arcitecture-recognition-client](https://github.com/NeliaNovichenko/arcitecture-recognition-client) |
+| Backend for prediction  | [arcitecture-prediction-api](https://github.com/NeliaNovichenko/arcitecture-prediction-api) |
