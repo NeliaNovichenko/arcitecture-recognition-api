@@ -33,4 +33,4 @@ You can run application in Visual Studio using `Run on IIS Express`.
   - fix performance
   
 ## Contacts
-In case you have any questions please contact me via [e-mail](novichenko.nelya@gmail.com).
+In case you have any questions please contact me via e-mail: novichenko.nelya@gmail.com.
